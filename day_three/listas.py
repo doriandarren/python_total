@@ -27,3 +27,10 @@ eliminado = mi_lista3.pop(2)
 print(mi_lista3)
 print(eliminado)
 
+
+lista = ['g', 'o', 'b', 'm', 'c']
+lista.sort()
+print(lista)
+lista.reverse()
+print(lista)
+
