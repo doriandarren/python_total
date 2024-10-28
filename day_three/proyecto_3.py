@@ -33,6 +33,7 @@ letra_final = texto[-1]
 print(f"Incial: {letra_inicio} y fin {letra_final}")
 
 
+
 print("\n")
 print("Texto invertido")
 palabras.reverse()
