@@ -14,3 +14,12 @@ while respuesta == 's':
     respuesta = input("quieres seguir? (s/n): ")
 else:
     print("Hasta luego...")
+
+
+nombre = input("tu nombre: ")
+for letra in nombre:
+    if letra == 'r':
+        break
+        #continue
+        #pass
+    print(letra)
