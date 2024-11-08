@@ -144,8 +144,12 @@ while not finalizar_programa:
         mi_categoria = elegir_categoria(mis_categorias)
         mis_recetas = mostrar_recetas(mi_categoria)
 
-        mi_receta = elegir_recetas(mis_recetas)
-        leer_receta(mi_receta)
+        if len(mis_recetas) < 1:
+            print("No hay recetas en esta categoría.")
+        else:
+            mi_receta = elegir_recetas(mis_recetas)
+            leer_receta(mi_receta)
+
         volver_inicio()
         #pass
 
@@ -166,7 +170,12 @@ while not finalizar_programa:
         mi_categoria = elegir_categoria(mis_categorias)
         mis_recetas = mostrar_recetas(mi_categoria)
         mi_receta = elegir_recetas(mis_recetas)
-        eliminar_receta(mi_receta)
+
+        if len(mis_recetas) < 1:
+            print("No hay recetas en esta categoría.")
+        else:
+            eliminar_receta(mi_receta)
+
         volver_inicio()
         #pass
 
