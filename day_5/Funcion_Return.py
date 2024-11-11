@@ -1,9 +1,7 @@
 
 def multiplicar(num1, num2):
     """
-    :param num1:
-    :param num2:
-    :return:
+    Comentario de la funcion
     """
     total = num1 * num2
     return total
