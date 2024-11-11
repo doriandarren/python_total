@@ -8,6 +8,8 @@ class Animal:
     def nacer(self):
         print("Este animal ha nacido")
 
+    def hablar(self):
+        print("Este animal emiyte sonido")
 
 
 class Pajaro(Animal):
