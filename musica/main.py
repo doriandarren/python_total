@@ -1,61 +1,111 @@
+from pydub import AudioSegment
+from scipy.signal import find_peaks
 from midiutil import MIDIFile
+import numpy as np
+
+# Cargar archivo de audio
+file_path = "ESW LoFi - Drum Loop 01 - 75 BPM.wav"  # Asegúrate de usar el nombre correcto
+audio = AudioSegment.from_file(file_path)
+
+# Convertir a mono y normalizar
+samples = np.array(audio.set_channels(1).get_array_of_samples())
+samples = samples / np.max(np.abs(samples))  # Normalizar
+
+# Detectar picos (representando golpes de percusión)
+frame_rate = audio.frame_rate
+peaks, _ = find_peaks(samples, height=0.5, distance=frame_rate // 10)
+
+# Convertir tiempos de los picos a segundos
+peak_times = peaks / frame_rate
 
 # Crear archivo MIDI
 midi = MIDIFile(1)  # Una pista
-midi.addTempo(0, 0, 60)  # Ritmo relajado: 60 BPM
+midi.addTempo(0, 0, 75)  # BPM basado en el nombre del archivo
 
-# Sección A: Acordes tranquilos
-chords_A = [
-    (48, 52, 55),  # C Major
-    (50, 53, 57),  # D Minor
-    (45, 48, 52),  # A Minor
-    (43, 47, 50),  # G Major
-]
-
-# Sección B: Variación en los acordes
-chords_B = [
-    (48, 51, 55),  # C Major 7
-    (50, 53, 57),  # D Minor 7
-    (45, 48, 51),  # A Minor 7
-    (43, 47, 50),  # G Major 7
-]
-
-# Acordes extendidos para ~5 minutos (80 compases)
-start_time = 0
-for i in range(40):  # Alternar entre A y B para un total de 80 compases
-    chords = chords_A if i % 2 == 0 else chords_B
-    for chord in chords:
-        for note in chord:
-            midi.addNote(0, 0, note, start_time, 4, 50)  # Acordes suaves y largos
-        start_time += 4
-
-# Melodía extendida (se repite durante 80 compases)
-melody = [
-    72, 74, 72, 71, None,  # Espacios entre notas para calma
-    74, 76, None, 74, 72,  # Variaciones sutiles
-    69, 71, None, 72, None  # Cierre suave
-]
-
-time = 0
-for _ in range(10):  # Repetir la melodía 10 veces (~80 compases)
-    for note in melody:
-        if note is not None:
-            midi.addNote(0, 1, note, time, 2, 40)  # Notas largas y suaves
-        time += 2
-
-# Ritmo mínimo (kick y snare espaciados)
-kick = [0, 6]  # Bombo en los beats 1 y 4
-snare = [12]   # Caja solo una vez por compás (beat 4)
-
-for compas in range(80):  # 80 compases de ritmo mínimo
-    for beat in kick:
-        midi.addNote(0, 9, 36, compas * 4 + beat, 0.5, 40)  # Kick tenue
-    for beat in snare:
-        midi.addNote(0, 9, 38, compas * 4 + beat, 0.5, 30)  # Snare muy leve
+# Agregar eventos MIDI para los picos detectados
+for time in peak_times:
+    midi.addNote(0, 9, 36, time, 0.2, 100)  # Nota 36 (kick drum)
 
 # Guardar el archivo MIDI
-with open("lofi_5min_tranquil.mid", "wb") as output_file:
+output_path = "lofi_drum_pattern.mid"
+with open(output_path, "wb") as output_file:
     midi.writeFile(output_file)
+
+print(f"Archivo MIDI guardado en: {output_path}")
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+Esta ok esta 5 minutos
+"""
+
+# from midiutil import MIDIFile
+#
+# # Crear archivo MIDI
+# midi = MIDIFile(1)  # Una pista
+# midi.addTempo(0, 0, 60)  # Ritmo relajado: 60 BPM
+#
+# # Sección A: Acordes tranquilos
+# chords_A = [
+#     (48, 52, 55),  # C Major
+#     (50, 53, 57),  # D Minor
+#     (45, 48, 52),  # A Minor
+#     (43, 47, 50),  # G Major
+# ]
+#
+# # Sección B: Variación en los acordes
+# chords_B = [
+#     (48, 51, 55),  # C Major 7
+#     (50, 53, 57),  # D Minor 7
+#     (45, 48, 51),  # A Minor 7
+#     (43, 47, 50),  # G Major 7
+# ]
+#
+# # Acordes extendidos para ~5 minutos (80 compases)
+# start_time = 0
+# for i in range(40):  # Alternar entre A y B para un total de 80 compases
+#     chords = chords_A if i % 2 == 0 else chords_B
+#     for chord in chords:
+#         for note in chord:
+#             midi.addNote(0, 0, note, start_time, 4, 50)  # Acordes suaves y largos
+#         start_time += 4
+#
+# # Melodía extendida (se repite durante 80 compases)
+# melody = [
+#     72, 74, 72, 71, None,  # Espacios entre notas para calma
+#     74, 76, None, 74, 72,  # Variaciones sutiles
+#     69, 71, None, 72, None  # Cierre suave
+# ]
+#
+# time = 0
+# for _ in range(10):  # Repetir la melodía 10 veces (~80 compases)
+#     for note in melody:
+#         if note is not None:
+#             midi.addNote(0, 1, note, time, 2, 40)  # Notas largas y suaves
+#         time += 2
+#
+# # Ritmo mínimo (kick y snare espaciados)
+# kick = [0, 6]  # Bombo en los beats 1 y 4
+# snare = [12]   # Caja solo una vez por compás (beat 4)
+#
+# for compas in range(80):  # 80 compases de ritmo mínimo
+#     for beat in kick:
+#         midi.addNote(0, 9, 36, compas * 4 + beat, 0.5, 40)  # Kick tenue
+#     for beat in snare:
+#         midi.addNote(0, 9, 38, compas * 4 + beat, 0.5, 30)  # Snare muy leve
+#
+# # Guardar el archivo MIDI
+# with open("lofi_5min_tranquil.mid", "wb") as output_file:
+#     midi.writeFile(output_file)
 
 
 
