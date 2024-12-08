@@ -1,7 +1,12 @@
 ## Course Pyton total
 
+### Error: import _tkinter # If this fails your Python may not be configured for Tk
 
+```sh
+brew install python-tk
+```
 
+### Install
 ```sh
 
 Lo primero:
