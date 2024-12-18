@@ -18,7 +18,7 @@ CHANNELS = 1  # Número de canales (mono)
 # Configuración de pyttsx3
 engine = pyttsx3.init()
 
-#last_transcription = ""  # Variable para guardar la última transcripción
+last_transcription = ""  # Variable para guardar la última transcripción
 
 
 # Cola para almacenar datos de audio
@@ -43,7 +43,7 @@ def audio_callback(indata, frames, time, status):
 # Inicializa el flujo de grabación y reconocimiento
 def main():
 
-    # global last_transcription  # Usar la variable global para almacenar la última transcripción
+    global last_transcription  # Usar la variable global para almacenar la última transcripción
 
     print("Iniciando grabación. Habla algo...")
     recognizer = KaldiRecognizer(model, SAMPLE_RATE)
@@ -62,10 +62,10 @@ def main():
                     print("Texto reconocido:", r)
 
                     # Evitar repetición de la misma palabra o frase
-                    # if r and r != last_transcription:
-                    #     print("Texto reconocido:", r)
-                    #     say(r)
-                    #     last_transcription = r  # Actualiza la última transcrip
+                    if r and r != last_transcription:
+                        print("Texto reconocido:", r)
+                        say(r)
+                        last_transcription = r  # Actualiza la última transcrip
 
                 else:
                     # Resultado parcial (opcional)
