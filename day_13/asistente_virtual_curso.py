@@ -67,7 +67,7 @@ def saludo_inicial():
     else:
         momento = 'Buenas tardes'
 
-    hablar(f'{momento}, soy Helena, tu asistente personal. Por favor, dime en que te puedo ayudar')
+    hablar(f'{momento}, soy Elena, tu asistente personal. Por favor, dime en que te puedo ayudar')
 
 
 
@@ -131,6 +131,7 @@ def pedir_cosas():
         elif 'adiós' in pedido:
             hablar("Me voy a descansar, cualquier cosa me avisas")
             break
+
 
 
 
