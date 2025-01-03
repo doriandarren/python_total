@@ -19,6 +19,7 @@ pip-wheel-metadata/
 build/
 dist/
 *.dist-info/
+.venv/
 
 # Django stuff:
 *.log
@@ -79,16 +80,8 @@ coverage.xml
 *.coveragerc
 *.codecov.yml
 
-# virtualenv
-.venv/
-venv/
-ENV/
-env/
-env.bak/
-venv.bak/
 
 # macOS files
-.DS_Store
 .AppleDouble
 .LSOverride
 
