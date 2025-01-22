@@ -107,8 +107,10 @@ def loadWhile():
     Método principal para ejecutar la captura periódicamente cada minuto.
     """
     # Define el área de captura (ajusta según tu pantalla)
-    ### capture_area = (500, 250, 980, 300)  ## No borrara es para la macos del curro
-    capture_area = (250, 300, 900, 400)  ## YahooFinance
+    ## capture_area = (500, 250, 980, 300)  ## No borrara es para la macos del curro
+    ##capture_area = (250, 300, 900, 400)  ## YahooFinance
+
+    capture_area = (500, 250, 780, 300)
 
     # Ejecutar periódicamente cada minuto
     print("Iniciando cron para capturar cada minuto... Presiona Ctrl+C para detener.")
