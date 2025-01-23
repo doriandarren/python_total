@@ -2,6 +2,7 @@ import pyautogui
 import pytesseract
 import re
 import time
+from db_connection import insert_data
 
 
 def capture_and_process(region, interval=1, output_file="screenshot_region.png"):
@@ -20,11 +21,17 @@ def capture_and_process(region, interval=1, output_file="screenshot_region.png")
 
             # Extraer texto con pytesseract
             text = pytesseract.image_to_string(output_file)
-            print(f"Texto extraído: {text}")
+            ## print(f"Texto extraído: {text}")
 
             # Procesar números
             numbers = extract_numbers(text)
-            print(f"Números encontrados: {numbers}")
+            #print(f"Números encontrados: {numbers}")
+
+            fnumber = format_number(numbers[1])
+
+            #print(f"{fnumber}")
+            insert_data(fnumber, 0.0)
+
 
             # Pausar hasta la próxima captura
             time.sleep(interval)
@@ -45,7 +52,19 @@ def extract_numbers(text):
     return re.findall(pattern, text)
 
 
+
+def format_number(number):
+    print(number)
+    return number.replace(",", "")
+
+
+
+
 if __name__ == "__main__":
     # Define el área de captura (x, y, ancho, alto)
     region = (100, 100, 400, 300)  # Ajusta el área según tu necesidad
     capture_and_process(region, interval=2)
+
+    # numbers = ['96,439.4']  # Ejemplo
+    # signed_numbers = ['+1.32', '-0.85']  # Ejemplo
+    # insert_data(numbers, signed_numbers)
