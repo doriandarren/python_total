@@ -2,6 +2,8 @@ from sqlalchemy import create_engine, Column, Integer, DECIMAL, String, TIMESTAM
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
+import pytz
+
 
 # Configuración de la conexión
 DATABASE_URL = "mysql+pymysql://root:123456@localhost/test"
@@ -13,6 +15,14 @@ engine = create_engine(DATABASE_URL, echo=True)
 Base = declarative_base()
 
 
+# Configurar la zona horaria
+timezone = pytz.timezone("Europe/Madrid")
+
+
+# Función para obtener la hora local
+def get_local_time():
+    return datetime.now(timezone)
+
 
 # Crear una tabla como modelo
 class ValoresCapturados(Base):
@@ -21,7 +31,7 @@ class ValoresCapturados(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     numero = Column(DECIMAL(10, 2))  # Usamos DECIMAL(10,2)
     valor_signo = Column(DECIMAL(10, 2))  # También DECIMAL(10,2)
-    fecha_captura = Column(TIMESTAMP, default=datetime.utcnow)
+    fecha_captura = Column(TIMESTAMP, default=get_local_time)
 
 # Crear las tablas en la base de datos (si no existen)
 Base.metadata.create_all(engine)
