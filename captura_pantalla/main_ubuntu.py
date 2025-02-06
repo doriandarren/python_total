@@ -25,21 +25,27 @@ def capture_and_process(region, interval=1, output_file="screenshot_region.png")
 
             # Extraer texto con pytesseract
             text = pytesseract.image_to_string(output_file)
-            ## print(f"Texto extraído: {text}")
+            #print(f"Texto extraído: {text}")
 
             # Procesar números
             numbers = extract_numbers(text)
-            print(f"Números encontrados: {numbers}")
+            #print(f"Números encontrados: {numbers}")
 
-            if len(numbers) > 2:
-                fnumber = format_number(numbers[1])
-
-                #print(f"{fnumber}")
+            if len(numbers) > 0:
+                fnumber = format_number(numbers[0])
                 insert_data(fnumber, 0.0)
 
-                # Eliminar el archivo de imagen después de procesarlo
-                if os.path.exists(output_file):
-                    os.remove(output_file)
+
+            # if len(numbers) > 2:
+            #     fnumber = format_number(numbers[1])
+            #
+            #     print(f"{fnumber}")
+            #     insert_data(fnumber, 0.0)
+
+
+            # Eliminar el archivo de imagen después de procesarlo
+            if os.path.exists(output_file):
+                os.remove(output_file)
 
             # Pausar hasta la próxima captura
             time.sleep(interval)
@@ -71,7 +77,7 @@ def format_number(number):
 if __name__ == "__main__":
     # Define el área de captura (x, y, ancho, alto)
     # region = (100, 100, 400, 300)  # Ajusta el área según tu necesidad
-    region = (100, 120, 350, 100)  # Ajusta el área según tu necesidad
+    region = (100, 120, 300, 100)  # Ajusta el área según tu necesidad
     capture_and_process(region, interval=2)
 
     # numbers = ['96,439.4']  # Ejemplo
