@@ -25,7 +25,7 @@ def capture_and_process(region, interval=1, output_file="screenshot_region.png")
 
             # Extraer texto con pytesseract
             text = pytesseract.image_to_string(output_file)
-            #print(f"Texto extraído: {text}")
+            print(f"Texto extraído: {text}")
 
             # Procesar números
             numbers = extract_numbers(text)
