@@ -25,7 +25,7 @@ def capture_and_process(region, interval=1, output_file="screenshot_region.png")
 
             # Extraer texto con pytesseract
             text = pytesseract.image_to_string(output_file)
-            print(f"Texto extraído: {text}")
+            #print(f"Texto extraído: {text}")
 
             # Procesar números
             numbers = extract_numbers(text)
@@ -57,7 +57,7 @@ def capture_and_process(region, interval=1, output_file="screenshot_region.png")
 
 def extract_numbers(text):
     """
-    Extrae números del texto usando expresiones regulares.
+  cvffvfggg  Extrae números del texto usando expresiones regulares.
     :param text: Texto extraído de la imagen.
     :return: Lista de números encontrados.
     """
